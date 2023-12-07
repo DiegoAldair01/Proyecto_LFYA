@@ -2,13 +2,25 @@
 #include <string.h>
 
 int main() {
-    int n, m;
 
     // Solicitar números a multiplicar al usuario
-    printf("Ingrese el primer número: ");
-    scanf("%d", &n);
-    printf("Ingrese el segundo número: ");
-    scanf("%d", &m);
+    char cadena[20];  // Asegúrate de asignar suficiente espacio para la cadena
+    int n = 0;
+    int m = 0;
+
+    // Solicitar la cadena al usuario
+    printf("Ingrese la cadena (por ejemplo, 5x10): ");
+    scanf("%s", cadena);
+
+    // Utilizar sscanf para extraer los valores
+    if (sscanf(cadena, "%dx%d", &n, &m) == 2) {
+        // Imprimir los valores extraídos
+        printf("n: %d\n", n);
+        printf("m: %d\n", m);
+    } else {
+        // Manejar el caso en el que la entrada no tenga el formato esperado
+        printf("Entrada no válida.\n");
+    }
 
     // Crear cintas del automata
     int tamano1 = (n + m) + 1; // +1 para 'B'
@@ -19,7 +31,7 @@ int main() {
     // Llenar cinta 1 con la secuencia
     memset(cinta1, 'a', n);
     memset(cinta1 + n, 'b', m);
-    cinta1[n + m] = 'C';
+    cinta1[n + m] = 'B';
 
     // Imprimir contenido de la cinta 1
     printf("Cinta 1: %s\n", cinta1);
@@ -49,8 +61,8 @@ int main() {
                 i++;
                 apuntador++;
             }
-        } else if (cinta1[i] == 'C') {
-            // 'C' en cinta 1, movimiento a la izquierda
+        } else if (cinta1[i] == 'B') {
+            // 'B' en cinta 1, movimiento a la izquierda
             i--; // Retroceder un paso
             while (i >= 0 && cinta1[i] != 'x') {
                 i--;
